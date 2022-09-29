@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:text_messenger/data.dart';
+import 'package:text_messenger/friends_data.dart';
 
 void main() {
   test('one', () {
