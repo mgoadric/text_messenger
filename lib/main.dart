@@ -40,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String? _ipaddress = "Loading...";
+  late StreamSubscription<Socket> server_sub;
   late Friends _friends;
   late List<DropdownMenuItem<String>> _friendList;
   late TextEditingController _nameController, _ipController;
@@ -54,6 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _findIPAddress();
   }
 
+  void dispose() {
+    server_sub.cancel();
+    super.dispose();
+  }
+
   Future<void> _findIPAddress() async {
     // Thank you https://stackoverflow.com/questions/52411168/how-to-get-device-ip-in-dart-flutter
     String? ip = await NetworkInfo().getWifiIP();
@@ -66,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       ServerSocket server =
           await ServerSocket.bind(InternetAddress.anyIPv4, ourPort);
-      server.listen(_listenToSocket); // StreamSubscription<Socket>
+      server_sub = server.listen(_listenToSocket); // StreamSubscription<Socket>
     } on SocketException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Error: $e"),
