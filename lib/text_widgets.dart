@@ -18,16 +18,14 @@ class ActionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.all(6.0),
-        child: SizedBox(
-            width: this.width,
-            child: TextField(
-              controller: controller,
-              keyboardType: inType,
-              onSubmitted: handler,
-              decoration: InputDecoration(labelText: label),
-            )));
+    return SizedBox(
+        width: this.width,
+        child: TextField(
+          controller: controller,
+          keyboardType: inType,
+          onSubmitted: handler,
+          decoration: InputDecoration(labelText: label),
+        ));
   }
 }
 

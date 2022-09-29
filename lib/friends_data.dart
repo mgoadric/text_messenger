@@ -66,26 +66,32 @@ class Friend extends ChangeNotifier {
 
   Widget bubble_history() {
     return ListView(
+      reverse: true,
       shrinkWrap: true,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      children: _messages.map((m) {
-        bool is_me = m.author == "Me";
-        return BubbleNormal(
-          text: m.content,
-          isSender: is_me,
-          color: is_me ? Color(0xFFE8E8EE) : Color(0xFF1B97F3),
-          tail: false,
-          textStyle: is_me
-              ? TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )
-              : TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-        );
-      }).toList(),
+      children: _messages
+          .map((m) {
+            bool is_me = m.author == "Me";
+            return BubbleNormal(
+              text: m.content,
+              isSender: is_me,
+              color: is_me ? Color(0xFFE8E8EE) : Color(0xFF1B97F3),
+              tail: false,
+              textStyle: is_me
+                  ? TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    )
+                  : TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+            );
+          })
+          .toList()
+          // https://stackoverflow.com/questions/53483263/flutter-how-to-make-a-list-that-always-scrolls-to-the-bottom
+          .reversed
+          .toList(growable: false),
     );
   }
 }
